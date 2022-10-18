@@ -1,0 +1,16 @@
+version: "2.1"
+services:
+  nfsen:
+    image: aastefanov/nfsen
+    container_name: nfsen
+    volumes:
+      - "./data:/data"
+      - "./config:/opt/nfsen/etc"
+#      - ./plugins/backend:/data/plugins
+      - "./plugins_frontend:/var/www/nfsen/plugins"
+    environment:
+      - TIMEZONE=Europe/Sofia
+    ports:
+      - "8080:80"
+      - "2055:2055"
+    restart: unless-stopped

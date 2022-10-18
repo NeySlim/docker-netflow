@@ -110,7 +110,7 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && chmod +x /entrypoint.sh \
     && rm -rf /var/www/html \
     && rm -f /etc/lighttpd/conf-enabled/99-unconfigured.conf \
-    && rm -rf /build \
+#    && rm -rf /build \
     && apt-get autoremove -y >/dev/null 2>&1 || true \
     && apt-get clean -y >/dev/null 2>&1 || true \
     && apt-get autoclean -y >/dev/null 2>&1 || true \
@@ -130,6 +130,9 @@ EXPOSE 4739/udp
 
 # sFlow
 EXPOSE 6343/udp
+
+# Volumes
+VOLUME ["/data", "/opt/nfsen/etc", "/var/www/nfsen/plugins"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 

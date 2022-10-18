@@ -5,6 +5,13 @@ set -o errexit
 
 [[ "$DEBUG" == "true" ]] && set -x
 
+
+cd /build/nfsen
+echo | ./install.pl ./etc/nfsen.conf
+
+cd /
+
+
 # Starting nfsend
 /opt/nfsen/bin/nfsen start
 
