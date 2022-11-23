@@ -1,8 +1,8 @@
 FROM debian:bullseye-slim AS builder
 
-ARG NFDUMP_VERSION=1.6.23
+ARG NFDUMP_VERSION=1.6.25
 ARG NFSEN_VERSION=1.3.8
-ARG TIMEZONE=UTC
+ARG TIMEZONE=Europe/Sofia
 ARG VERSION=1.0.0
 ARG BUILD_ID=0000000
 
@@ -61,11 +61,11 @@ RUN wget -O nfsen.tar.gz http://sourceforge.net/projects/nfsen/files/stable/nfse
     && tar -xzf nfsen.tar.gz \
     && mv nfsen-${NFSEN_VERSION} nfsen \
     && sed -i -re "s|rrd_version < 1.6|rrd_version < 1.8|g" nfsen/libexec/NfSenRRD.pm \
-    && mv /artifacts/nfsen.conf /artifacts/nfsen/etc/nfsen.conf
+    && mv /artifacts/nfsen.conf /artifacts/nfsen/etc/nfsen-empty.conf
 
 FROM debian:bullseye-slim
 
-ARG TIMEZONE=UTC
+ARG TIMEZONE=Europe/Sofia
 ARG VERSION=1.0.0
 ARG BUILD_ID=0000000
 
@@ -106,7 +106,7 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && mkdir -p /var/www /opt/nfsen /build/nfsen \
     && cd /build/nfsen \
     && ldconfig \
-    && echo | ./install.pl ./etc/nfsen.conf || true \
+    && echo | ./install.pl ./etc/nfsen-empty.conf || true \
     && chmod +x /entrypoint.sh \
     && rm -rf /var/www/html \
     && rm -f /etc/lighttpd/conf-enabled/99-unconfigured.conf \
@@ -132,7 +132,7 @@ EXPOSE 4739/udp
 EXPOSE 6343/udp
 
 # Volumes
-VOLUME ["/data", "/opt/nfsen/etc", "/var/www/nfsen/plugins"]
+VOLUME ["/data", "/build/nfsen/etc", "/var/www/nfsen/plugins"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 

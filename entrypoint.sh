@@ -7,7 +7,7 @@ set -o errexit
 
 
 cd /build/nfsen
-echo | ./install.pl ./etc/nfsen.conf || true
+echo | ./install.pl /build/nfsen/etc/nfsen.conf || true
 
 cd /
 
