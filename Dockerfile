@@ -104,14 +104,14 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && sed -i -re 's|^server.pid-file[ ]+=.*|server.pid-file = "/run/lighttpd/lighttpd.pid"|g' /etc/lighttpd/lighttpd.conf \
     && sed -i -re 's|"socket"[ ]+=>.*|"socket" => "/run/lighttpd/php.socket",|g' /etc/lighttpd/conf-enabled/15-fastcgi-php.conf \
     && mkdir -p /var/www /opt/nfsen \
-    && cp -r /build/nfsen /opt/nfsen-build
+    && cp -r /build/nfsen /opt/nfsen-build \
     && cd /build/nfsen \
     && ldconfig \
     && echo | ./install.pl ./etc/nfsen-empty.conf || true \
     && chmod +x /entrypoint.sh \
     && rm -rf /var/www/html \
     && rm -f /etc/lighttpd/conf-enabled/99-unconfigured.conf \
-#    && rm -rf /build \
+    && rm -rf /build \
     && apt-get autoremove -y >/dev/null 2>&1 || true \
     && apt-get clean -y >/dev/null 2>&1 || true \
     && apt-get autoclean -y >/dev/null 2>&1 || true \
