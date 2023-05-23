@@ -4,13 +4,20 @@ services:
     image: neyslim/nfsen
     container_name: nfsen
     volumes:
-      - "./data:/data"
-      - "./config:/opt/nfsen/etc"
+      - "/mnt/disk2/appdata/nfsen/data:/data"
+      - "/mnt/disk2/appdata/nfsen/config:/opt/nfsen/etc"
 #      - ./plugins/backend:/data/plugins
-      - "./plugins_frontend:/var/www/nfsen/plugins"
+      - "/mnt/disk2/appdata/nfsen/plugins_frontend:/var/www/nfsen/plugins"
     environment:
-      - TIMEZONE=Europe/Sofia
+      - TIMEZONE=Europe/Paris
     ports:
-      - "8080:80"
-      - "2055:2055"
+      - 5000:80
+      - 2055:2055
+      - 4739:4739
+      - 6343:6343
+      - 9996:9996
+      - 2055:2055/udp
+      - 4739:4739/udp
+      - 6343:6343/udp
+      - 9996:9996/udp
     restart: unless-stopped
