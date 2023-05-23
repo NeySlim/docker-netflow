@@ -2,7 +2,7 @@ FROM debian:bullseye-slim AS builder
 
 ARG NFDUMP_VERSION=1.6.25
 ARG NFSEN_VERSION=1.3.8
-ARG TIMEZONE=Europe/Sofia
+ARG TIMEZONE=Europe/Paris
 ARG VERSION=1.0.0
 ARG BUILD_ID=0000000
 
@@ -69,9 +69,9 @@ ARG TIMEZONE=Europe/Sofia
 ARG VERSION=1.0.0
 ARG BUILD_ID=0000000
 
-LABEL org.opencontainers.image.authors="Serghei Iakovlev <egrep@protonmail.ch>" \
+LABEL org.opencontainers.image.authors="Serghei Iakovlev <egrep@protonmail.ch> - NeySlim" \
       org.opencontainers.image.description="Slimmed-down Netflow collector and local processing Docker image" \
-      org.opencontainers.image.source="https://github.com/sergeyklay/docker-netflow" \
+      org.opencontainers.image.source="https://github.com/NeySlim/docker-netflow" \
       org.opencontainers.image.version=$VERSION \
       org.opencontainers.image.revision=$BUILD_ID
 
@@ -110,7 +110,7 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && chmod +x /entrypoint.sh \
     && rm -rf /var/www/html \
     && rm -f /etc/lighttpd/conf-enabled/99-unconfigured.conf \
-#    && rm -rf /build \
+    && rm -rf /build \
     && apt-get autoremove -y >/dev/null 2>&1 || true \
     && apt-get clean -y >/dev/null 2>&1 || true \
     && apt-get autoclean -y >/dev/null 2>&1 || true \
