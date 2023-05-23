@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # set -e : exit the script if any statement returns a non-true return value
-set -o errexit
+# set -o errexit # Disabled for failing healthcheck
 
 command=$(/opt/nfsen/bin/nfsen status | grep -c "is not running")
 
