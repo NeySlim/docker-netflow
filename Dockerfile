@@ -103,7 +103,8 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && sed -i -re 's|^index-file.names[ ]+=.*|index-file.names = ( "nfsen.php" )|g' /etc/lighttpd/lighttpd.conf \
     && sed -i -re 's|^server.pid-file[ ]+=.*|server.pid-file = "/run/lighttpd/lighttpd.pid"|g' /etc/lighttpd/lighttpd.conf \
     && sed -i -re 's|"socket"[ ]+=>.*|"socket" => "/run/lighttpd/php.socket",|g' /etc/lighttpd/conf-enabled/15-fastcgi-php.conf \
-    && mkdir -p /var/www /opt/nfsen /build/nfsen \
+    && mkdir -p /var/www /opt/nfsen \
+    && cp -r /build/nfsen /opt/nfsen-build
     && cd /build/nfsen \
     && ldconfig \
     && echo | ./install.pl ./etc/nfsen-empty.conf || true \
