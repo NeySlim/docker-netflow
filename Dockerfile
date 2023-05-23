@@ -65,7 +65,7 @@ RUN wget -O nfsen.tar.gz http://sourceforge.net/projects/nfsen/files/stable/nfse
 
 FROM debian:bullseye-slim
 
-ARG TIMEZONE=Europe/Sofia
+ARG TIMEZONE=Europe/Paris
 ARG VERSION=1.0.0
 ARG BUILD_ID=0000000
 
